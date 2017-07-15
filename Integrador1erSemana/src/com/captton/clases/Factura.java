@@ -35,7 +35,7 @@ public class Factura {
 		if (cliente.getDeuda()<4000f){
 		this.cliente = cliente;
 		System.out.println("Cliente agregado");
-		}else System.out.println("Cliente con deuda mayor a 1000, no se le puede vender");
+		}else System.out.println("Cliente con deuda mayor a 4000, no se le puede vender");
 			
 	}
 
@@ -55,6 +55,7 @@ public class Factura {
 	     }else 
 	      { // Es de Servicio
 	    	 this.items.add(new Item(prod, cant));
+	    	 System.out.println("item de servicios agregado correctamente");
 	        }
 	    
 	}else System.out.println("No puede agregar items a una factura que no tiene cliente asignado");
@@ -65,6 +66,11 @@ public class Factura {
 	{
 		if (!this.items.isEmpty())
 		{	
+			System.out.println("---------------------------------------------------------");
+			System.out.println("Cliente: "+cliente.getRazonsocial());
+			System.out.println("Fact Nro: "+this.numFact);
+			
+		//Pueden venir Items de Manofactura o Servicios mezclados 	
 		for(Item it: this.items)
 		  {
 			System.out.println("Descr: "+ it.getProd().getDescripcion());
@@ -74,7 +80,9 @@ public class Factura {
 			System.out.println("---------------------------------------------------------");
 	        // Aumento la deuda del cliente
 			cliente.setDeuda(it.getQty()*it.getProd().getPrecio());	
-			((Manofactura)it.getProd()).bajaStock(it.getQty());
+			
+			if (it.getProd() instanceof Manofactura) //Unicamente baja stock a los items de manofactura			
+		       	((Manofactura)it.getProd()).bajaStock(it.getQty());
 		  }
 		}else System.out.println("No puede facturar si no tiene items en la factura");
 		
