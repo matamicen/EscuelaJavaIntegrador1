@@ -34,6 +34,8 @@ public class inicio {
 		fact5.agregoItem(p3, 4);
 		fact5.facturar();
 		
+	//	((Manofactura)p1).fabricar(10);
+		
 		Factura fact3 = new Factura(3);
 		fact3.setCliente(cli1);
 		fact3.agregoItem(p1, 10);
